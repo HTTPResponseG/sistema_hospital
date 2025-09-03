@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribución / paquetes
+*.egg-info/
+dist/
+build/
+
+# Django
+db.sqlite3
+/media/
+/staticfiles/
+*.log
+
+# Entorno / config local
+.env
+settings_local.py
+
+# IDEs
+.vscode/
+.idea/
+
