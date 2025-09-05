@@ -12,10 +12,14 @@
     <h1 class="mb-4">🏥 Sistema de Gestión de Citas Médicas</h1>
     <p class="lead">Bienvenido, selecciona una opción para comenzar:</p>
 
-    <div class="d-grid gap-3 col-6 mx-auto mt-4">
-      <a href="{% url 'listar_pacientes' %}" class="btn btn-primary btn-lg">👨‍⚕️ Gestionar Pacientes</a>
-      <a href="{% url 'listar_citas' %}" class="btn btn-success btn-lg">📅 Gestionar Citas Médicas</a>
-    </div>
+  <div class="d-grid gap-3 col-6 mx-auto mt-4">
+    <a href="{% url 'listar_pacientes' %}" class="btn btn-primary btn-lg">👨‍⚕️ Gestionar Pacientes</a>
+    <a href="{% url 'listar_citas' %}" class="btn btn-success btn-lg">📅 Gestionar Citas Médicas</a>
+    <a href="{% url 'listar_historiales' %}" class="btn btn-warning btn-lg">📋 Historiales Clínicos</a>
+    <a href="{% url 'listar_recetas' %}" class="btn btn-info btn-lg">💊 Recetas Médicas</a>
+    <a href="/admin/" class="btn btn-secondary btn-lg">👨‍💻 Panel de Administración</a>
+  </div>
+
   </div>
 
 </body>

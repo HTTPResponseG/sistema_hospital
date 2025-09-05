@@ -24,7 +24,15 @@ class Paciente(models.Model):
 
     def __str__(self):
         return f"{self.nombre} - {self.rut}"
+    
+class HistorialClinico(models.Model):
+    paciente = models.OneToOneField("Paciente", on_delete=models.CASCADE)
+    antecedentes = models.CharField(max_length=150)
+    alergias = models.CharField(blank=True, max_length=100)
+    enfermedades_cronicas = models.CharField(blank=True, max_length=100)
 
+    def __str__(self):
+        return f"Historial de {self.paciente.nombre}"
 
 class CitaMedica(models.Model):
     fecha = models.DateField()
@@ -38,3 +46,13 @@ class CitaMedica(models.Model):
     
     def __str__(self):
         return f"Cita: {self.fecha} - Paciente: {self.paciente.nombre} con Medico: {self.medico.nombre}"
+    
+class RecetaMedica(models.Model):
+    cita = models.ForeignKey("CitaMedica", on_delete=models.CASCADE)
+    medicamento = models.CharField(max_length=100)
+    dosis = models.CharField(max_length=50)
+    indicaciones = models.TextField()
+
+    def __str__(self):
+        return f"Receta para {self.cita.paciente.nombre} ({self.medicamento})"
+

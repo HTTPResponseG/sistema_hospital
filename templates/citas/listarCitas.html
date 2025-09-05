@@ -9,29 +9,42 @@
 <body class="container py-5">
 
   <h1 class="mb-4">Listado de Citas Médicas</h1>
+  <form method="get" action="{% url 'buscar_cita' %}" class="row g-3 mb-4">
+    <div class="col-md-8">
+      <input type="text" name="q" class="form-control" placeholder="Ingrese Fecha en Formato (2025-10-04) o Nombre del paciente">
+    </div>
+    <div class="col-md-4">
+      <button type="submit" class="btn btn-success w-100">Buscar Cita</button>
+    </div>
+  </form>
 
   <table class="table table-striped table-bordered">
-    <thead class="table-dark">
-      <tr>
-        <th>Fecha</th>
-        <th>Paciente</th>
-        <th>Médico</th>
-        <th>Especialidad</th>
-        <th>Motivo</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for c in citas %}
-      <tr>
-        <td>{{ c.fecha }}</td>
-        <td>{{ c.paciente.nombre }}</td>
-        <td>{{ c.medico.nombre }}</td>
-        <td>{{ c.especialidad.nombre }}</td>
-        <td>{{ c.motivo }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <thead class="table-dark">
+    <tr>
+      <th>Fecha</th>
+      <th>Paciente</th>
+      <th>Médico</th>
+      <th>Especialidad</th>
+      <th>Motivo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in citas %}
+    <tr>
+      <td>{{ c.fecha }}</td>
+      <td>{{ c.paciente.nombre }}</td>
+      <td>{{ c.medico.nombre }}</td>
+      <td>{{ c.especialidad.nombre }}</td>
+      <td>{{ c.motivo }}</td>
+      <td>
+        <a href="{% url 'ver_recetas' c.id %}" class="btn btn-outline-warning btn-sm">💊 Recetas</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 
   <a href="{% url 'crear_cita' %}" class="btn btn-primary">Nueva Cita</a>
   <a href="{% url 'home' %}" class="btn btn-danger">Volver al Home</a>

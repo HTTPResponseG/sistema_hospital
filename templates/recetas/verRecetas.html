@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Recetas de la Cita #{{ cita.id }}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container py-5">
+
+<h1 class="mb-4">Recetas de la Cita #{{ cita.id }}</h1>
+<p><strong>Paciente:</strong> {{ cita.paciente.nombre }}</p>
+<p><strong>Médico:</strong> {{ cita.medico.nombre }}</p>
+<p><strong>Fecha:</strong> {{ cita.fecha }}</p>
+<p><strong>Motivo:</strong> {{ cita.motivo }}</p>
+
+<table class="table table-striped table-bordered mt-4">
+  <thead class="table-dark">
+    <tr>
+      <th>Medicamento</th>
+      <th>Dosis</th>
+      <th>Indicaciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in recetas %}
+    <tr>
+      <td>{{ r.medicamento }}</td>
+      <td>{{ r.dosis }}</td>
+      <td>{{ r.indicaciones }}</td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="3" class="text-center">No hay recetas para esta cita</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{% url 'listar_recetas' %}" class="btn btn-secondary">Volver al listado de recetas</a>
+<a href="{% url 'home' %}" class="btn btn-danger">Volver al Home</a>
+
+</body>
+</html>

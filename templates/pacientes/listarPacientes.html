@@ -10,28 +10,47 @@
 
   <h1 class="mb-4">Listado de Pacientes</h1>
 
+  <!-- 🔍 Formulario de búsqueda -->
+  <form method="get" action="{% url 'buscar_paciente' %}" class="row g-3 mb-4">
+    <div class="col-md-8">
+      <input type="text" name="q" class="form-control" placeholder="Ingrese Rut o Nombre del paciente">
+    </div>
+    <div class="col-md-4">
+      <button type="submit" class="btn btn-success w-100">Buscar Paciente</button>
+    </div>
+  </form>
+
   <table class="table table-hover table-bordered">
-    <thead class="table-dark">
-      <tr>
-        <th>RUT</th>
-        <th>Nombre</th>
-        <th>Fecha Nacimiento</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for p in pacientes %}
-      <tr>
-        <td>{{ p.rut }}</td>
-        <td>{{ p.nombre }}</td>
-        <td>{{ p.fecha_nacimiento }}</td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <thead class="table-dark">
+    <tr>
+      <th>RUT</th>
+      <th>Nombre</th>
+      <th>Fecha Nacimiento</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for p in pacientes %}
+    <tr>
+      <td>{{ p.rut }}</td>
+      <td>{{ p.nombre }}</td>
+      <td>{{ p.fecha_nacimiento }}</td>
+      <td>
+        <a href="{% url 'ver_historial' p.id %}" class="btn btn-outline-info btn-sm">📋 Historial</a>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="4" class="text-center">No se encontraron pacientes</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 
   <a href="{% url 'crear_paciente' %}" class="btn btn-primary">Nuevo Paciente</a>
   <a href="{% url 'home' %}" class="btn btn-danger">Volver al Home</a>
 
-
 </body>
 </html>
+

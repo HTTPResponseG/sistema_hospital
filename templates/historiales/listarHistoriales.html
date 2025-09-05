@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Historiales Clínicos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="container py-5">
+
+<h1 class="mb-4">Historiales Clínicos</h1>
+
+<table class="table table-bordered table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Paciente</th>
+      <th>Antecedentes</th>
+      <th>Alergias</th>
+      <th>Enfermedades Crónicas</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    
+    {% for h in historiales %}
+    <tr>
+      <td>{{ h.paciente.nombre }}</td>
+      <td>{{ h.antecedentes }}</td>
+      <td>{{ h.alergias }}</td>
+      <td>{{ h.enfermedades_cronicas }}</td>
+      <td>
+        <a href="{% url 'ver_historial' h.paciente.id %}" class="btn btn-outline-info btn-sm">Ver / Editar</a>
+      </td>
+    </tr>
+    
+    <tr>
+      <td colspan="5" class="text-center">No hay historiales registrados</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{% url 'crear_historial' %}" class="btn btn-primary">Nuevo Historial</a>
+<a href="{% url 'home' %}" class="btn btn-danger">Volver al Home</a>
+
+</body>
+</html>

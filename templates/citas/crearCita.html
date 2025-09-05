@@ -8,14 +8,23 @@
 </head>
 <body class="container py-5">
 
-  <h1 class="mb-4">Crear Cita Médica</h1>
+  <h1 class="mb-4 text-center">Crear Cita Médica</h1>
+  {% load crispy_forms_tags %}
 
-  <form method="POST" class="card p-4 shadow-sm">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" class="btn btn-success mt-3">Guardar</button>
-    <a href="{% url 'listar_citas' %}" class="btn btn-secondary mt-3">Volver</a>
-  </form>
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form method="POST" class="card p-4 shadow-sm">
+        {% csrf_token %}
+        {{ form|crispy }}
+
+        <div class="d-flex justify-content-between mt-3">
+          <button type="submit" class="btn btn-success">Guardar</button>
+          <a href="{% url 'listar_citas' %}" class="btn btn-secondary">Volver</a>
+        </div>
+      </form>
+    </div>
+  </div>
 
 </body>
 </html>
+
