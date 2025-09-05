@@ -1,4 +1,4 @@
-🏥 Sistema de Gestión de Citas Médicas
+🏥 Sistema de Gestión de Citas Médicas 🏥
 
 ![Home](assets/home.png)
 
