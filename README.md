@@ -55,24 +55,9 @@ Receta Médica 💊: vinculada a una cita, permite registrar medicamentos, dosis
 Historial Clínico 📋: asociado al paciente, registra antecedentes, alergias y enfermedades crónicas.
 
 
-🔗 Relaciones
-
-Un paciente puede tener muchas citas médicas.
-
-Un médico puede atender en muchas citas médicas.
-
-Una especialidad puede estar asociada a muchos médicos y a muchas citas médicas.
-
-Cada cita médica se relaciona únicamente con un paciente, un médico y una especialidad.
-
-Una cita puede tener muchas recetas; cada receta pertenece a una cita.
-
-Cada paciente puede tener como máximo un historial clínico (puede no tenerlo); cada historial pertenece a un paciente.
-
-
 🛠️ Tecnologías utilizadas
-Python 3.x
-Django 5.x
+Python 3.12.1
+Django 5.2.3
 HTML + Bootstrap 5
 Base de datos MySQL (puede usarse SQLite por defecto para desarrollo rápido)
 
