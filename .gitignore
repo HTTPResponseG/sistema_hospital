@@ -22,3 +22,4 @@ settings_local.py
 .vscode/
 .idea/
 
+venv
