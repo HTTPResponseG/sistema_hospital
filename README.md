@@ -1,4 +1,22 @@
-🏥 Sistema de Gestión de Citas Médicas
+🏥 Sistema de Gestión de Citas Médicas 🏥
+
+![Home](assets/home.png)
+
+![Gestión de Pacientes](assets/listadoPacientes.png)
+
+![Crear Paciente](assets/crearPaciente.png)
+
+![Gestión de Citas](assets/citasMedicas.png)
+
+![Crear Cita](assets/crearCita.png)
+
+![Gestión de Recetas](assets/recetasMedicas.png)
+
+![Ver Receta](assets/verReceta.png)
+
+![Crear Receta](assets/crearReceta.png)
+
+![Modelo Entidad Relación](assets/MER.png)
 
 Este proyecto es un sistema web desarrollado en Django que permite gestionar pacientes, médicos, especialidades, citas médicas, recetas y el historial clínico de cada paciente.
 El sistema busca simular cómo se organiza la información en un hospital, integrando relaciones entre entidades y una interfaz intuitiva con Bootstrap, conectada a una base de datos MySQL.
