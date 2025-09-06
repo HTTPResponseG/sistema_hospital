@@ -8,26 +8,32 @@
 </head>
 <body class="container py-5">
 
-<h1 class="mb-4">Historial de {{ paciente.nombre }}</h1>
+<h1 class="mb-4">Historial de {{ paciente.nombre }} 📋</h1>
 
-<form method="POST" class="card p-4 shadow-sm">
-  {% csrf_token %}
-  {{ historial.paciente.as_p }}
-  <div class="mb-3">
-    <label>Antecedentes</label>
-    <textarea class="form-control" readonly>{{ historial.antecedentes }}</textarea>
+{% if historial %}
+  <form method="POST" class="card p-4 shadow-sm">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label>Antecedentes</label>
+      <textarea class="form-control" readonly>{{ historial.antecedentes }}</textarea>
+    </div>
+    <div class="mb-3">
+      <label>Alergias</label>
+      <textarea class="form-control" readonly>{{ historial.alergias }}</textarea>
+    </div>
+    <div class="mb-3">
+      <label>Enfermedades Crónicas</label>
+      <textarea class="form-control" readonly>{{ historial.enfermedades_cronicas }}</textarea>
+    </div>
+  </form>
+{% else %}
+  <div class="alert alert-warning">
+    ⚠️ El paciente <strong>{{ paciente.nombre }}</strong> no tiene historial registrado.
   </div>
-  <div class="mb-3">
-    <label>Alergias</label>
-    <textarea class="form-control" readonly>{{ historial.alergias }}</textarea>
-  </div>
-  <div class="mb-3">
-    <label>Enfermedades Crónicas</label>
-    <textarea class="form-control" readonly>{{ historial.enfermedades_cronicas }}</textarea>
-  </div>
+{% endif %}
+  <br>
+<a href="{% url 'listar_pacientes' %}" class="btn btn-secondary">Volver</a>
 
-  <a href="{% url 'listar_historiales' %}" class="btn btn-secondary">Volver</a>
-</form>
 
 </body>
 </html>

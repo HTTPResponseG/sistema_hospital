@@ -69,11 +69,13 @@ def listar_historiales(request):
 
 def ver_historial(request, paciente_id):
     paciente = get_object_or_404(Paciente, id=paciente_id)
-    historial, creado = HistorialClinico.objects.get_or_create(paciente=paciente)
+    historial = HistorialClinico.objects.filter(paciente=paciente).first()
     return render(request, "historiales/verHistorial.html", {
         "historial": historial,
         "paciente": paciente
     })
+
+
 
 def crear_historial(request):
     if request.method == "POST":

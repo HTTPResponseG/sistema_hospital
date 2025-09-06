@@ -8,7 +8,7 @@
 </head>
 <body class="container py-5">
 
-<h1 class="mb-4">Historiales Clínicos</h1>
+<h1 class="mb-4">Historiales Clínicos 📋</h1>
 
 <table class="table table-bordered table-hover">
   <thead class="table-dark">
@@ -29,13 +29,10 @@
       <td>{{ h.alergias }}</td>
       <td>{{ h.enfermedades_cronicas }}</td>
       <td>
-        <a href="{% url 'ver_historial' h.paciente.id %}" class="btn btn-outline-info btn-sm">Ver / Editar</a>
+        <a href="{% url 'ver_historial' h.paciente.id %}" class="btn btn-outline-info btn-sm">Ver Historial</a>
       </td>
     </tr>
-    
-    <tr>
-      <td colspan="5" class="text-center">No hay historiales registrados</td>
-    </tr>
+  
     {% endfor %}
   </tbody>
 </table>
