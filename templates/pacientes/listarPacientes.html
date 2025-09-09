@@ -1,56 +1,108 @@
+{% extends "home/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Listado de Pacientes</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body class="container py-5">
 
-  <h1 class="mb-4">Listado de Pacientes</h1>
+{% block title %}Listado de Pacientes{% endblock %}
 
-  <!-- 🔍 Formulario de búsqueda -->
-  <form method="get" action="{% url 'buscar_paciente' %}" class="row g-3 mb-4">
-    <div class="col-md-8">
-      <input type="text" name="q" class="form-control" placeholder="Ingrese Rut o Nombre del paciente">
+{% block content %}
+<div class="card shadow-sm">
+  <div class="card-body">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h2 class="mb-0 fw-bold">👥 Pacientes</h2>
+        <small class="text-muted">Listado registrado en el sistema</small>
+      </div>
+      <div class="d-flex gap-2">
+        <a href="{% url 'crear_paciente' %}" class="btn btn-primary btn-sm">➕ Nuevo Paciente</a>
+        <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm">🏠 Home</a>
+      </div>
     </div>
-    <div class="col-md-4">
-      <button type="submit" class="btn btn-success w-100">Buscar Paciente</button>
+
+    <!-- Mensajes flash -->
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Cerrar"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <!-- Buscador -->
+    <form method="get" action="{% url 'buscar_paciente' %}" class="row g-2 mb-4">
+      <div class="col-md-8">
+        <div class="input-group">
+          <input type="text" name="q" value="{{ request.GET.q }}" class="form-control" placeholder="Buscar por RUT o nombre">
+          <button class="btn btn-outline-primary" type="submit" title="Buscar">🔎</button>
+        </div>
+      </div>
+      <div class="col-md-4 text-md-end align-self-center">
+        <small class="text-muted">Resultados: <strong>{{ pacientes|length }}</strong></small>
+      </div>
+    </form>
+
+    <!-- Tabla -->
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="table-light">
+          <tr>
+            <th>RUT</th>
+            <th>Nombre</th>
+            <th>Fecha Nacimiento</th>
+            <th class="text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for p in pacientes %}
+            <tr>
+              <td class="fw-medium">{{ p.rut }}</td>
+              <td>{{ p.nombre }}</td>
+              <td>{{ p.fecha_nacimiento|date:"d/m/Y" }}</td>
+              <td class="text-center">
+                <a href="{% url 'ver_historial' p.id %}" class="btn btn-sm btn-info me-1" title="Ver historial">📋 Ver</a>
+              </td>
+            </tr>
+          {% empty %}
+            <tr>
+              <td colspan="4" class="text-center py-4">
+                <div class="mb-3 text-muted">No se encontraron pacientes.</div>
+                <a href="{% url 'crear_paciente' %}" class="btn btn-primary">Crear primer paciente</a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-  </form>
 
-  <table class="table table-hover table-bordered">
-  <thead class="table-dark">
-    <tr>
-      <th>RUT</th>
-      <th>Nombre</th>
-      <th>Fecha Nacimiento</th>
-      <th>Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for p in pacientes %}
-    <tr>
-      <td>{{ p.rut }}</td>
-      <td>{{ p.nombre }}</td>
-      <td>{{ p.fecha_nacimiento }}</td>
-      <td>
-        <a href="{% url 'ver_historial' p.id %}" class="btn btn-outline-info btn-sm">📋 Historial</a>
-      </td>
-    </tr>
-    {% empty %}
-    <tr>
-      <td colspan="4" class="text-center">No se encontraron pacientes</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+    <!-- Paginación (opcional) -->
+    {% if is_paginated %}
+      <nav aria-label="Paginación">
+        <ul class="pagination justify-content-center mt-3 mb-0">
+          {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="?q={{ request.GET.q }}&page={{ page_obj.previous_page_number }}">Anterior</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">Anterior</span></li>
+          {% endif %}
 
+          {% for num in paginator.page_range %}
+            <li class="page-item {% if page_obj.number == num %}active{% endif %}">
+              <a class="page-link" href="?q={{ request.GET.q }}&page={{ num }}">{{ num }}</a>
+            </li>
+          {% endfor %}
 
-  <a href="{% url 'crear_paciente' %}" class="btn btn-primary">Nuevo Paciente</a>
-  <a href="{% url 'home' %}" class="btn btn-danger">Volver al Home</a>
+          {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="?q={{ request.GET.q }}&page={{ page_obj.next_page_number }}">Siguiente</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled"><span class="page-link">Siguiente</span></li>
+          {% endif %}
+        </ul>
+      </nav>
+    {% endif %}
 
-</body>
-</html>
+  </div>
+</div>
+{% endblock %}
 
